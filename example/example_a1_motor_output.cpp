@@ -10,7 +10,7 @@ int main() {
   MotorCmd    cmd;
   MotorData   data;
 
-  float output_kp = 25;
+  float output_kp = 25; 
   float output_kd = 0.6;
   float rotor_kp = 0;
   float rotor_kd = 0;
@@ -34,7 +34,7 @@ int main() {
   output_angle_c = (data.q / gear_ratio) * (180/PI);
   while(true) 
   {
-    sin_counter+=0.0001;
+    sin_counter+=0.005;
     float output_angle_d;
     output_angle_d = output_angle_c + 90 * sin(2*PI*sin_counter);
     float rotor_angle_d = (output_angle_d * (PI/180)) * gear_ratio;
@@ -42,10 +42,10 @@ int main() {
     data.motorType = MotorType::A1;
     cmd.mode  = queryMotorMode(MotorType::A1,MotorMode::FOC);
     cmd.id    = 0;
-    cmd.kp    = rotor_kp;
-    cmd.kd    = rotor_kd;
-    cmd.q     = rotor_angle_d;
-    cmd.dq    = 0.0;
+    cmd.kp    = 0.0; //rotor_kp;
+    cmd.kd    = 2.0; //rotor_kd;
+    cmd.q     = 0.0; //rotor_angle_d;
+    cmd.dq    = -0.628*queryGearRatio(MotorType::A1)*10;//0.0;
     cmd.tau   = 0.0;
     serial.sendRecv(&cmd,&data);
 

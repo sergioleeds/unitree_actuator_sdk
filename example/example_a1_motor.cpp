@@ -18,7 +18,7 @@ int main() {
     cmd.kp    = 0.0;
     cmd.kd    = 2;
     cmd.q     = 0.0;
-    cmd.dq    = -6.28*queryGearRatio(MotorType::A1);
+    cmd.dq    = -0.628*queryGearRatio(MotorType::A1)*5;
     cmd.tau   = 0.0;
     serial.sendRecv(&cmd,&data);
 
